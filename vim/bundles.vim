@@ -26,11 +26,9 @@ Plugin 'tpope/vim-surround'    " Powerful cs, ds, ys, viS', works with vim-repea
 " DEV Tools
 Plugin 'tpope/vim-commentary'  " Comment with gcc. :g/content/Commentary ;; 7,17Commentary
 Plugin 'jiangmiao/auto-pairs'      " Pair quotes, brackets, etcs
-Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/syntastic'
+
 
 " DISPLAY
-Plugin 'airblade/vim-gitgutter'         " Provides nice gutter for file addition in git control
 Plugin 'haroldjin/vim-stackoverflow'  " Stack Overflow search
 Plugin 'kien/ctrlp.vim'                 " File Search
 Plugin 'mileszs/ack.vim'
@@ -38,12 +36,20 @@ Plugin 'scrooloose/nerdtree'            " Display tree for filesystem
 Plugin 'haroldjin/vim-g'                      " Search Google
 
 " Editor
-" Plugin 'Yggdroot/indentLine'
 Plugin 'bronson/vim-trailing-whitespace'  " Whitespace cleaner useful
 Plugin 'kshenoy/vim-signature'
 Plugin 'tmhedberg/matchit'                " Better matching for key '%'
 Plugin 'tpope/vim-fugitive'               " plugin on GitHub repo
 Plugin 'vim-airline/vim-airline'          " Status bar display more info
+
+" Classify
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'honza/vim-snippets'
+Plugin 'majutsushi/tagbar'
+Plugin 'scrooloose/syntastic'
+Plugin 'airblade/vim-gitgutter'         " Provides nice gutter for file addition in git control
+Plugin 'w0rp/ale'
 
 call vundle#end()
 filetype plugin indent on

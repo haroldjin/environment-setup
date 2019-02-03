@@ -43,7 +43,7 @@ else
 fi
 
 if [ "$installedHomeBrew" = true ]; then
-    declare -a commandsToInstall=("python3" "nvm", "ruby")
+    declare -a commandsToInstall=("python3" "nvm", "yarn", "npm")
 
     for command in "${commandsToInstall[@]}"; do
         command_exists "$command"

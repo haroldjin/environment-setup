@@ -67,3 +67,4 @@ set viminfo='0,:0,<0,@0,f0
 "f0 means that marks will not be saved
 "no % means that the buffer list will not be saved
 "no / means that the search history will be saved
+"   

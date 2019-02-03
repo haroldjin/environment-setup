@@ -25,6 +25,7 @@ alias python="/usr/local/bin/python3"
 alias pip="/usr/local/bin/pip3"
 
 # Docker
+alias dubuntu_sys="docker run -i -t  --cap-add SYS_PTRACE ubuntu bash"
 alias dc="docker"
 alias dcS="docker stop"
 alias dcc="docker commit"
