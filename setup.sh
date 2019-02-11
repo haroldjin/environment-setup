@@ -44,7 +44,7 @@ command_exists () {
 }
 
 homerbew_setup(){
-    declare -a commandsToInstall=("python3" "nvm" "yarn" "npm")
+    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake")
 
     for command in "${commandsToInstall[@]}"; do
         command_exists "$command"
@@ -118,7 +118,7 @@ setup_mac(){
     prompt_select "Do you want to set up `prompt_bold "Homebrew"`"
     if [ $? == 1 ]; then
         prompt_info "setting up homebrew"
-        # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         if [ $? -eq 0 ]; then
             prompt_info "brew set up successfully"
             homerbew_setup
