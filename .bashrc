@@ -70,7 +70,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 export GOROOT=/usr/local/opt/go/libexec
-export LIB=$HOME/lib
+export LIB=$HOME/Documents/lib
 export FLUTTER_PATH=$LIB/flutter
 export GOPATH=$LIB/go
 export GRADLE_BIN=$HOME/.gradle/wrapper/dists/gradle-4.4-bin/bgaq7vklkazwgxox0hdadxbvi/gradle-4.4/bin
