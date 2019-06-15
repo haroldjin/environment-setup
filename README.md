@@ -2,6 +2,6 @@
 1. How to setup
     * Run `sh setup.sh` to start environment setup script.
 
-## Limitations
-1. Currently, it only supports Mac OS X for setting up brew and dependencies.
-2. Linux will support setting up bash profile and vim profile.
+## Features
+1. Supports Mac OS X brew dependencies setup.
+2. Bash, zsh and vim environment setup.
