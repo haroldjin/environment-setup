@@ -1,3 +1,18 @@
+# {{{ Set up zsh
+for config_file (~/.zsh/lib/*.zsh(N)); do
+  source $config_file
+done
+unset config_file
+
+local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
+PROMPT='${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'
+
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+# }}}
 # {{{ Alias
 # ls
 alias l='ls -l'
@@ -78,3 +93,4 @@ export LOCAL_BIN=$HOME/bin
 export FASTLANE_BIN=$HOME/.fastlane/bin
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
 export PATH=$LOCAL_BIN:$GOROOT/bin:$GOPATH/bin:$FASTLANE_BIN:$PATH:$GRADLE_BIN:$JAVA_HOME/bin:$FLUTTER_PATH/bin
+

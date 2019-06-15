@@ -125,7 +125,11 @@ setup_zsh(){
         fi
     fi
 
-    ln -sfn `pwd`/.zshrc ~/.zshrc
+    if [ ! -d ~/.zsh ]; then
+        mkdir ~/.zsh
+    fi
+    ln -sfn `pwd`/.zshrc ~/.zshrc && ln -sfn `pwd`/zsh/lib ~/.zsh/lib
+
     if [ $? -eq 0 ]; then
         prompt_info "zsh set up successful"
     else
