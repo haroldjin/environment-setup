@@ -63,7 +63,7 @@ command_exists () {
 }
 
 homerbew_setup(){
-    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake")
+    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux")
 
     for command in "${commandsToInstall[@]}"; do
         command_exists "$command"
