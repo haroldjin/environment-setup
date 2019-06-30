@@ -10,7 +10,6 @@ call vundle#begin()                 " Start Vundle
 Plugin 'gmarik/Vundle.vim'
 
 " Notes
-Plugin 'plasticboy/vim-markdown'
 Plugin 'xolox/vim-notes'  " For taking better notes
 Plugin 'xolox/vim-misc'   " extended vimscript library
 Plugin 'vim-scripts/L9'   " vimscript library for vim note
@@ -24,6 +23,7 @@ Plugin 'tpope/vim-repeat'      " Use . command to repeat
 Plugin 'tpope/vim-surround'    " Powerful cs, ds, ys, viS', works with vim-repeat
 
 " DEV Tools
+Plugin 'fatih/vim-go'
 Plugin 'tpope/vim-commentary'  " Comment with gcc. :g/content/Commentary ;; 7,17Commentary
 Plugin 'jiangmiao/auto-pairs'      " Pair quotes, brackets, etcs
 
@@ -47,7 +47,6 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'honza/vim-snippets'
 Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/syntastic'
 Plugin 'airblade/vim-gitgutter'         " Provides nice gutter for file addition in git control
 Plugin 'w0rp/ale'
 

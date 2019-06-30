@@ -105,7 +105,7 @@ setup_bash(){
         fi
     fi
 
-    ln -sfn `pwd`/.bashrc ~/.bash_profile
+    ln -sfn `pwd`/shell/.bashrc ~/.bash_profile
     if [ $? -eq 0 ]; then
         prompt_info "bash set up successful"
     else
@@ -128,7 +128,7 @@ setup_zsh(){
     if [ ! -d ~/.zsh ]; then
         mkdir ~/.zsh
     fi
-    ln -sfn `pwd`/.zshrc ~/.zshrc && ln -sfn `pwd`/zsh/lib ~/.zsh/lib
+    ln -sfn `pwd`/shell/.zshrc ~/.zshrc && ln -sfn `pwd`/zsh ~/.zsh
 
     if [ $? -eq 0 ]; then
         prompt_info "zsh set up successful"
@@ -140,34 +140,6 @@ setup_zsh(){
 }
 
 
-setup_vim(){
-    prompt_select_return "Do you want to set up vim?"
-    if [ $? == 0 ]; then
-        return 0
-    fi
-    prompt_info "setting up vimrc and vim libraries"
-    ln -sfn `pwd`/vim/vimrc ~/.vimrc && ln -sfn `pwd`/vim ~/.vim
-    if [ $? -eq 0 ]; then
-        prompt_info "vim folder setup successful"
-    else
-        prompt_info "error setting up vim"
-        exit 1
-    fi
-
-    prompt_info "cloning vundle to vim directory"
-    if [ ! -d `pwd`/vim/bundle/Vundle.vim ]; then
-        git clone ${VUNDLE_PATH} `pwd`/vim/bundle/Vundle.vim
-    fi
-
-    prompt_info "install plugins for vim"
-    vim +PluginInstall +qall
-
-    prompt_select_return "do you want to set up YouCompleteMe?"
-    if [ $? == 1 ]; then
-        python `pwd`/vim/bundle/YouCompleteMe/install.py --all
-    fi
-    echo
-}
 
 setup_mac(){
     prompt_select_return "Do you want to set up `prompt_bold "Homebrew"`"
@@ -198,6 +170,62 @@ setup_shell(){
     fi
 }
 
+setup_vim(){
+    prompt_select_return "Do you want to set up vim?"
+    if [ $? == 0 ]; then
+        return 0
+    fi
+    prompt_info "setting up vimrc and vim libraries"
+    ln -sfn `pwd`/vim/vimrc ~/.vimrc && ln -sfn `pwd`/vim ~/.vim
+    if [ $? -eq 0 ]; then
+        prompt_info "vim folder setup successful"
+    else
+        prompt_info "error setting up vim"
+        exit 1
+    fi
+
+    prompt_info "cloning vundle to vim directory"
+    if [ ! -d `pwd`/vim/bundle/Vundle.vim ]; then
+        git clone ${VUNDLE_PATH} `pwd`/vim/bundle/Vundle.vim
+    fi
+
+    prompt_info "install plugins for vim"
+    vim +PluginInstall +qall
+
+    prompt_select_return "do you want to set up YouCompleteMe?"
+    if [ $? == 1 ]; then
+        python `pwd`/vim/bundle/YouCompleteMe/install.py --all
+    fi
+    echo
+}
+
+setup_tmux(){
+    prompt_select_return "Do you want to set up tmux?"
+    if [ $? == 0 ]; then
+        return 0
+    fi
+
+    if [ ! -e ./tmux/plugins/tpm ]; then
+        prompt_info "setting up tmux"
+        git clone https://github.com/tmux-plugins/tpm ./tmux/plugins/tpm
+        if [ $? -eq 0 ]; then
+            prompt_info "tmux git download successful"
+        else
+            prompt_info "error setting up tmux"
+            exit 1
+        fi
+    fi
+
+    ln -sfn `pwd`/tmux/.tmux.conf ~/.tmux.conf && ln -sfn `pwd`/tmux ~/.tmux && ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+    if [ $? -eq 0 ]; then
+        prompt_info "tmux setup successful"
+    else
+        prompt_info "error setting up tmux"
+        exit 1
+    fi
+
+}
+
 # ======= MAIN =======
 ## Setup dependencies
 if [ "$OS_NAME" == "Darwin" ]; then
@@ -210,10 +238,8 @@ else
     exit 1
 fi
 
-## Setup she
 setup_shell
-
-## Setup vim
 setup_vim
+setup_tmux
 
 prompt_info "setup completed!"
