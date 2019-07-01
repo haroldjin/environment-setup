@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 
 if which tput >/dev/null 2>&1; then
     colors=$(tput colors)
@@ -125,9 +125,6 @@ setup_zsh(){
         fi
     fi
 
-    if [ ! -d ~/.zsh ]; then
-        mkdir ~/.zsh
-    fi
     ln -sfn `pwd`/shell/.zshrc ~/.zshrc && ln -sfn `pwd`/zsh ~/.zsh
 
     if [ $? -eq 0 ]; then
