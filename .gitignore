@@ -2,3 +2,4 @@ vim/bundle/**
 oh-my-zsh/
 tmux/**
 !tmux/.tmux.conf
+vim/spell/*

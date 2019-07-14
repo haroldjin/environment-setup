@@ -1,6 +1,9 @@
-" Key & Plugin Mappings {{{1
-" set completefunc=syntaxcomplete#Complete
-" {{{2 Global
+" {{{1 Key & Plugin Mappings
+" {{{2 Global mapping
+" quick fix
+nnoremap <silent><leader>q :QFix<cr>
+nnoremap <leader>} :lnext<cr>
+nnoremap <leader>{ :lprev<cr>
 "}}}
 " {{{2 Tab Buf Win
 " Tmux mapping
@@ -73,9 +76,6 @@ cnoreabbrev aG Ack
 cnoreabbrev Ag Ack
 cnoreabbrev AG Ack
 " }}}
-" {{{2 vim-session
-let g:session_autosave = 'no'
-" }}}
 " {{{2 Git
 nnoremap <leader>ga :Git add % :p<CR><CR>
 nnoremap <leader>gA :Git add . <CR><CR>
@@ -97,12 +97,21 @@ nmap <leader>z :NERDTreeToggle<CR>
 nmap <silent><leader>a :TagbarToggle<CR>
 nmap <silent><leader><space> :FixWhitespace<CR>
 "}}}
-" {{{2 Quick Fix
-nnoremap <silent><leader>q :QFix<cr>
-nnoremap <leader>} :lnext<cr>
-nnoremap <leader>{ :lprev<cr>
+" {{{2 miscellaneous group
+let s:miscPrefix = ''
+" Tabularize
+if exists(":Tabularize")
+    nmap <leader>mt= :Tabularize /=<CR>
+    vmap <leader>mt= :Tabularize /=<CR>
+    nmap <leader>mt: :Tabularize /:\zs<CR>
+    vmap <leader>mt: :Tabularize /:\zs<CR>
+    nmap <leader>mt" :Tabularize /"<CR>
+    vmap <leader>mt" :Tabularize /"<CR>
+endif
+
+" }}}
 "}}}
-" {{{2 Common Command Reword
+"" {{{2 Common Command Reword
 cnoreabbrev Q q
 cnoreabbrev Q! q!
 cnoreabbrev Qall qall
@@ -114,7 +123,6 @@ cnoreabbrev Wa wa
 cnoreabbrev Wq wq
 cnoreabbrev wQ wq
 "}}}
-"}}}
 " Plugin Config{{{1
 " {{{ ALE
 function! LinterStatus() abort
@@ -124,10 +132,10 @@ function! LinterStatus() abort
     let l:all_non_errors = l:counts.total - l:all_errors
 
     return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   all_non_errors,
-    \   all_errors
-    \)
+                \   '%dW %dE',
+                \   all_non_errors,
+                \   all_errors
+                \)
 endfunction
 
 set statusline=%{LinterStatus()}
@@ -179,9 +187,9 @@ let g:NERDTreeWinSize = 30
 "}}}
 "{{{2 ctrlp.vim
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$|vendor\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp\|node_modules$',
-  \ 'file': '\.exe$\|\.so$\|\.dat$'
-  \ }
+            \ 'dir':  '\.git$|vendor\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp\|node_modules$',
+            \ 'file': '\.exe$\|\.so$\|\.dat$'
+            \ }
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 " noremap <leader>b :CtrlPBuffer<CR>
 " let g:ctrlp_map = '<leader>p'
@@ -197,16 +205,10 @@ let g:ctrlp_show_hidden = 1
 " nnoremap <silent><leader>f.  :FufFileWithCurrentBufferDir<cr>
 " nnoremap <silent><leader>f/  :FufFile /<cr>
 " nnoremap <silent><leader>fb  :FufBuffer<cr>
-" nnoremap <silent><leader>fd  :FufFile $HOME/Dropbox/<cr>
 " nnoremap <silent><leader>ff  :FufFile<cr>
 " nnoremap <silent><leader>fh  :FufFile $HOME/<cr>
 " nnoremap <silent><leader>fm :FufBookmarkDir<cr>
 " nnoremap <silent><leader>ft  FufTag<cr>
-"}}}
-" {{{2 Vim-note behaviors
-let g:notes_tab_indents = 1
-let g:notes_directories = ['~/Dropbox/8. Notes/']
-let g:notes_conceal_bold = 0
 "}}}
 " {{{2 YCM
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -251,8 +253,7 @@ nnoremap <silent><F5> :redraw!<CR>
 
 " F9 Filetype Group
 nnoremap <F9> :Dispatch<CR>
-"}}}
-" F Commands Augroup {{{1
+
 " F8 Filetype Group
 augroup filetype_execute
     autocmd!
@@ -280,9 +281,9 @@ augroup END
 " }}}
 " {{{1 Augroup
 augroup QFixToggle
- autocmd!
- autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
- autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
+    autocmd!
+    autocmd BufWinEnter quickfix let g:qfix_win = bufnr("$")
+    autocmd BufWinLeave * if exists("g:qfix_win") && expand("<abuf>") == g:qfix_win | unlet! g:qfix_win | endif
 augroup END
 "}}}
 " Util Commands & Funcs {{{1
@@ -291,11 +292,11 @@ augroup END
 let g:jah_Quickfix_Win_Height=10
 command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-  else
-    execute "copen " . g:jah_Quickfix_Win_Height
-  endif
+    if exists("g:qfix_win") && a:forced == 0
+        cclose
+    else
+        execute "copen " . g:jah_Quickfix_Win_Height
+    endif
 endfunction
 
 " tab space util
@@ -352,46 +353,46 @@ endfu
 
 " Vi Help
 fu! Help()
-  if &buftype=="help" && match( strpart( getline("."), col(".")-1,1), "\\S")<0
-    bw
-  else
-    try
-      exec "help ".expand("<cWORD>")
-    catch /:E149:\|:E661:/
-      " E149 no help for <subject>
-      " E661 no <language> help for <subject>
-      echon "Command not found: ".expand("<cWORD>")
-      " exec "help ".expand("<cword>")
-    endtry
-  endif
+    if &buftype=="help" && match( strpart( getline("."), col(".")-1,1), "\\S")<0
+        bw
+    else
+        try
+            exec "help ".expand("<cWORD>")
+        catch /:E149:\|:E661:/
+            " E149 no help for <subject>
+            " E661 no <language> help for <subject>
+            echon "Command not found: ".expand("<cWORD>")
+            " exec "help ".expand("<cword>")
+        endtry
+    endif
 endfu
 " }}}
 " {{{3 functions
 function! BackgroundCommandClose(channel)
-  " Read the output from the command into the quickfix window
-  execute "cfile! " . g:backgroundCommandOutput
-  " Open the quickfix window
-  copen
-  unlet g:backgroundCommandOutput
+    " Read the output from the command into the quickfix window
+    execute "cfile! " . g:backgroundCommandOutput
+    " Open the quickfix window
+    copen
+    unlet g:backgroundCommandOutput
 endfunction
 
 function! RunBackgroundCommand(command)
-  " Make sure we're running VIM version 8 or higher.
-  if v:version < 800
-    echoerr 'RunBackgroundCommand requires VIM version 8 or higher'
-    return
-  endif
+    " Make sure we're running VIM version 8 or higher.
+    if v:version < 800
+        echoerr 'RunBackgroundCommand requires VIM version 8 or higher'
+        return
+    endif
 
-  if exists('g:backgroundCommandOutput')
-    echo 'Already running task in background'
-  else
-    echo 'Running task in background'
-    " Launch the job.
-    " Notice that we're only capturing out, and not err here. This is because, for some reason, the callback
-    " will not actually get hit if we write err out to the same file. Not sure if I'm doing this wrong or?
-    let g:backgroundCommandOutput = tempname()
-    call job_start(a:command, {'close_cb': 'BackgroundCommandClose', 'out_io': 'file', 'out_name': g:backgroundCommandOutput})
-  endif
+    if exists('g:backgroundCommandOutput')
+        echo 'Already running task in background'
+    else
+        echo 'Running task in background'
+        " Launch the job.
+        " Notice that we're only capturing out, and not err here. This is because, for some reason, the callback
+        " will not actually get hit if we write err out to the same file. Not sure if I'm doing this wrong or?
+        let g:backgroundCommandOutput = tempname()
+        call job_start(a:command, {'close_cb': 'BackgroundCommandClose', 'out_io': 'file', 'out_name': g:backgroundCommandOutput})
+    endif
 endfunction
 
 command! -nargs=+ -complete=shellcmd RunBackgroundCommand call RunBackgroundCommand(<q-args>)

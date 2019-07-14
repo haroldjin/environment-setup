@@ -1,12 +1,10 @@
-" Basic Settings {{{1
 let mapleader = ","
 
-" {{{Editor
 colorscheme wombat256mod
 set cursorline
+
 let &backspace="indent,eol,start"  " Fix backspace deletion
 let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed' " Check have clipboard
-" }}}
 
 " General Configuration
 set foldmethod=marker   " set fold to mark
@@ -60,11 +58,7 @@ set nowritebackup           " No backup on write a file
 set nrformats=          "Treat 001 as digit when using c-a or c-x on normal mode
 
 set viminfo='0,:0,<0,@0,f0
-"'0 means that marks will not be saved
-":0 means that command-line history will not be saved
-"<0 means that registers will not be saved
-"@0 means that input-line history will not be saved
-"f0 means that marks will not be saved
-"no % means that the buffer list will not be saved
-"no / means that the search history will be saved
-"   
+
+" Allow mouse resize window in tmux mode
+set ttymouse=xterm2
+set mouse=a

@@ -65,6 +65,9 @@ alias wl="cd $HOME/Documents/lib"
 alias v="vi"
 alias vi="vim"
 
+# builtin alias
+alias c="clear"
+
 # }}}
 # {{{ exports
 export LIB=$HOME/Documents/lib
