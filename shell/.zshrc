@@ -68,6 +68,9 @@ alias vi="vim"
 # builtin alias
 alias c="clear"
 
+alias gdh="git diff HEAD"
+alias gdh="git diff HEAD^ HEAD"
+
 # }}}
 # {{{ exports
 export LIB=$HOME/Documents/lib

@@ -7,7 +7,6 @@ set rtp+=~/.vim/bundle/Vundle.vim   " A list of directories searched for runtime
 call vundle#begin()                 " Start Vundle
 Plugin 'gmarik/Vundle.vim'
 
-" Plugin 'Shougo/deoplete.nvim'
 Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
 Plugin 'Valloric/YouCompleteMe'          " Syntax completion
 Plugin 'airblade/vim-gitgutter'          " Provides nice gutter for file addition in git control

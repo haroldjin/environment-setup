@@ -19,7 +19,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 " }}}
-" {{{ multi-cursor
+" {{{ Multi-cursor
 let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
@@ -80,6 +80,7 @@ let g:ackprg = 'ag --vimgrep --smart-case'
 " }}}
 " {{{ YCM
 let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_filetype_specific_completion_to_disable = { 'vim':1, 'txt':1 }
 " }}}
 " {{{ Dispatch
 augroup dispatch_action

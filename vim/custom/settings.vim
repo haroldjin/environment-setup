@@ -1,64 +1,49 @@
 let mapleader = ","
 
-colorscheme wombat256mod
-set cursorline
-
-let &backspace="indent,eol,start"  " Fix backspace deletion
+let &backspace=" indent,eol,start"                              " Fix backspace deletion
 let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed' " Check have clipboard
-
-" General Configuration
-set foldmethod=marker   " set fold to mark
-set number
-set history=700
-set undolevels=700          " Max num of undo step
-
-" Editor Configuration
-set ruler               "Display cursor position
-set scrolloff=1         "always show 1 lines before/after the cursor
-set shiftround          "fill gap
-set shiftwidth=4        "overrides tabstop
-set showcmd     "Show partial command in the last line of the screen
-set smartcase   "When capital letter is used then it will search only capital else all
-set smartindent             " smarter indent for C-like languages
-set softtabstop=4           " An addition to tabstop for tab in editing
-set tabstop=4               " number of spaces a <tab> counts for
-set tags=./tags,tags;$HOME  " For ctag with completion
-set ttyfast                 " Set fast tty for redrawing.
-set viminfo='100,f1         " Only marks will be saved in viminfo
-set spell spelllang=en_us
-setlocal spell spelllang=en_us
-" set cryptmethod'=blowfish2
-
-" Event Configuration
-set autoread                    " Read the file automatically if changed outside the buffer
-set autowriteall
-set ffs=unix,dos,mac    " set file format
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-set wildmenu                            "allows menu to be tabbed.
-set wildmode=list:longest,list:full     " Complete all matche till longest commonn string
 
-" Behavior Configuration
-set autoindent                  " returns to indent of previous line
-set copyindent          " copy the previous indentation on autoindenting
-set encoding=utf-8
-set expandtab           " spaces for tab <c-v><tab> if want realtab
-set fileencoding=utf-8  " Saving file format
-set fileencodings=utf-8 " Options when saving a file
-set fileformats=unix,dos,mac " Set EOL accordingly
-set hidden                  " No need to save before switching buffers
-set hlsearch                " highlights the search
-set ignorecase              " Better searching
-set incsearch
-set lazyredraw              " Screen not updated for macro, redraw force it
-set nobackup                " No backup file
-set noequalalways           " windows not set equal
-set nojoinspaces
-set noswapfile              " buffer loaded without swp file
-set nowritebackup           " No backup on write a file
-set nrformats=          "Treat 001 as digit when using c-a or c-x on normal mode
+colorscheme wombat256mod                                        " Search rtp/colors/{name}.vim and load the first one
+set autoread                                                    " Read the file automatically if changed outside the buffer
+set autowriteall                                                " Write if content has been modified for all command
+set copyindent                                                  " Copy the previous indentation on autoindenting. For <tab> mostly
+set cursorline                                                  " Highlight the screen line of the cursor with CursorLine
+set encoding=utf-8                                              " Set the character encoding inside Vim, doesn't modify existing file encoding
+set expandtab                                                   " spaces for tab <c-v><tab> if want realtab
+set fileencoding=utf-8                                          " Encoding for when saving a file
+set fileencodings=utf-8                                         " Encodings list used for determining encoding during read file start
+set fileformats=unix,dos,mac                                    " Automatically detect and set file formats for you
+set fileformats=unix,dos,mac                                    " Set EOL accordingly
+set foldmethod=marker                                           " set fold to marker, triple { will create a fold
+set hidden                                                      " Keep buffer when a buffer is off a window
+set history=700                                                 " Number of lines that are remember
+set hlsearch                                                    " highlights the all search matches for a pattern
+set ignorecase                                                  " Ignore case when searching
+set incsearch                                                   " show search result as you type
+set mouse=a                                                     " Enable the use of the mouse for all modes
+set noautoindent                                                " Return to indent of previous line
+set nobackup                                                    " No backup file when overwriting a file
+set noswapfile                                                  " buffer loaded without swp file, avoid security issues if confidential info
+set nowritebackup                                               " No backup on write a file, default vim creates backup file to prevent loss on write
+set nrformats=                                                  " c-a or c-x on normal mode. No alpha, octal, hex, bin increment/decrement
+set number                                                      " Displays line number in front of each line
+set ruler                                                       " Show line and column number of the cursor position
+set scrolloff=2                                                 " Always show minimum 2 screen lines before/after the cursor
+set shiftround                                                  " C-T, C-D in insert mode or <, > in normal mode to indent multiple of 'shiftwidth'
+set shiftwidth=4                                                " Set number of spaces to use for each step of indent, >>, <<
+set showcmd                                                     " Show partial command in the last line of the screen
+set smartcase                                                   " Search only exact match when capital letter is provided else all. Overrides ignorecase
+set smartindent                                                 " Smarter autoindent when starting a new line enabled for languages
+set softtabstop=4                                               " An addition to tabstop for tab while performing editing operations
+set spell spelllang=en_us                                       " Set spell to USA. It checks files for spell error
+set tabstop=4                                                   " Number of spaces a <tab> counts for
+set tags=./tags,tags;$HOME                                      " For ctag with completion, C-] get into the tag and C-T get out of the tag
+set ttyfast                                                     " Set fast tty for redrawing. More characters sent to the screen for redraw
+set ttymouse=xterm2                                             " Name of the terminal type for which mouse codes are to be recognized. More precise
+set undolevels=700                                              " Max number of changes that can be undone
+set viminfo='0,:0,<0,@0,f0                                      " Used to remember information, such as CLI, search, marks, etc. Set to 0 for all
+set wildmenu                                                    " Enable enhanced mode where pressing <Tab> to invoke completion.
+set wildmode=list:longest,list:full                             " Complete all match till longest common string and complete first match
 
-set viminfo='0,:0,<0,@0,f0
 
-" Allow mouse resize window in tmux mode
-set ttymouse=xterm2
-set mouse=a
