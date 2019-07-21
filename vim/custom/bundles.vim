@@ -7,6 +7,7 @@ set rtp+=~/.vim/bundle/Vundle.vim   " A list of directories searched for runtime
 call vundle#begin()                 " Start Vundle
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'janko/vim-test'                  " A Vim wrapper for running tests on different granularities.
 Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
 Plugin 'Valloric/YouCompleteMe'          " Syntax completion
 Plugin 'airblade/vim-gitgutter'          " Provides nice gutter for file addition in git control
@@ -14,6 +15,7 @@ Plugin 'bronson/vim-trailing-whitespace' " Whitespace cleaner useful
 Plugin 'fatih/vim-go'                    " Go development inside vim. :GoBuild, GoTest, GoDef, GoCoverage, etc..
 Plugin 'godlygeek/tabular'               " Allow tabularize data
 Plugin 'haroldjin/vim-g'                 " Search Google
+Plugin 'haroldjin/vim-essentials'
 Plugin 'haroldjin/vim-stackoverflow'     " Stack Overflow search
 Plugin 'SirVer/ultisnips'                " Autocompletes snippets for you
 Plugin 'honza/vim-snippets'              " Snippet autocompletes data for you, customizable

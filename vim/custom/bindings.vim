@@ -67,10 +67,12 @@ inoremap <C-u> <C-o>d0<C-o>dl
 inoremap <C-w> <C-o>dB<C-o>x
 
 "}}}
+" {{{ Global
+nmap <silent><leader><space> :FixWhitespace<CR>
+nmap <leader>z :NERDTreeToggle<CR>
+nmap <silent><leader>a :TagbarToggle<CR>
+" }}}
 " {{{ Common Binding
-nmap <leader>cz :NERDTreeToggle<CR>
-nmap <silent><leader>ca :TagbarToggle<CR>
-nmap <silent><leader>c<space> :FixWhitespace<CR>
 
 " Easy motion
 nmap <leader>ces <Plug>(easymotion-overwin-f2)
@@ -99,9 +101,9 @@ nnoremap <leader>ygd :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>ygdc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>ygr :YcmCompleter GoToReferences<CR>
 
+
 "}}}
 " {{{ Miscellaneous Binding
-let s:miscPrefix = ''
 " Tabularize
 if exists(":Tabularize")
     nmap <leader>mt= :Tabularize /=<CR>
@@ -111,6 +113,14 @@ if exists(":Tabularize")
     nmap <leader>mt" :Tabularize /"<CR>
     vmap <leader>mt" :Tabularize /"<CR>
 endif
+
+"vim test
+nmap <silent> <leader>mt<C-n> :TestNearest<CR>
+nmap <silent> <leader>mt<C-f> :TestFile<CR>
+nmap <silent> <leader>mt<C-s> :TestSuite<CR>
+nmap <silent> <leader>mt<C-l> :TestLast<CR>
+nmap <silent> <leader>mt<C-g> :TestVisit<CR>
+
 " }}}
 " {{{ Utility Binding
 nnoremap <leader>ut "=strftime("%c")<CR>P

@@ -41,6 +41,15 @@ ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
+shell_colors(){
+    for i in {0..255}; do
+        printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i
+        if ! (( ($i + 1 ) % 8 )); then
+            echo
+        fi
+    done
+}
 # }}}
 # {{{ Alias
 alias dairy='date +%Y-%m-%d''.md'
@@ -64,9 +73,6 @@ alias wl="cd $HOME/Documents/lib"
 # bin alias
 alias v="vi"
 alias vi="vim"
-
-# builtin alias
-alias c="clear"
 
 alias gdh="git diff HEAD"
 alias gdh="git diff HEAD^ HEAD"

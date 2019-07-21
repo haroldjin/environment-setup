@@ -102,3 +102,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 " }}}
+" {{{ vim-test
+let test#strategy = "dispatch"
+let test#python#runner = 'pytest'
+" }}}
