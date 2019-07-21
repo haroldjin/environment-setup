@@ -5,3 +5,4 @@ source ~/.vim/custom/plugins.vim
 source ~/.vim/custom/bindings.vim
 source ~/.vim/custom/augroup.vim
 source ~/.vim/custom/commands.vim
+

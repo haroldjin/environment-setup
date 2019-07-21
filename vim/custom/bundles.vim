@@ -11,7 +11,6 @@ Plugin 'janko/vim-test'                  " A Vim wrapper for running tests on di
 Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
 Plugin 'Valloric/YouCompleteMe'          " Syntax completion
 Plugin 'airblade/vim-gitgutter'          " Provides nice gutter for file addition in git control
-Plugin 'bronson/vim-trailing-whitespace' " Whitespace cleaner useful
 Plugin 'fatih/vim-go'                    " Go development inside vim. :GoBuild, GoTest, GoDef, GoCoverage, etc..
 Plugin 'godlygeek/tabular'               " Allow tabularize data
 Plugin 'haroldjin/vim-g'                 " Search Google
@@ -32,6 +31,7 @@ Plugin 'tpope/vim-fugitive'              " map ,g to find out more about git map
 Plugin 'tpope/vim-repeat'                " Use . command to repeat vim surround
 Plugin 'tpope/vim-surround'              " Powerful cs, ds, ys (creates new surround), viS', works with vim-repeat
 Plugin 'vim-airline/vim-airline'         " Status bar display more info
+Plugin 'vim-airline/vim-airline-themes'  " Theme for airline
 Plugin 'w0rp/ale'                        " Async Completion Engine running in the background for Python, C++, etc..
 
 call vundle#end()

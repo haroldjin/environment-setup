@@ -1,5 +1,4 @@
-
-" Fix files with prettier, and then ESLint" In ~/.vim/ftplugin/python.vim
+" Let ALE engine use linters and fixers for python project
 
 " Check Python files with flake8 and pylint.
 let b:ale_linters = ['flake8', 'pylint']

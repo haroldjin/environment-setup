@@ -65,10 +65,9 @@ inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-u> <C-o>d0<C-o>dl
 inoremap <C-w> <C-o>dB<C-o>x
-
 "}}}
 " {{{ Global
-nmap <silent><leader><space> :FixWhitespace<CR>
+nmap <silent><leader><space> :RemoveWhiteSpace<CR>
 nmap <leader>z :NERDTreeToggle<CR>
 nmap <silent><leader>a :TagbarToggle<CR>
 " }}}

@@ -1,23 +1,19 @@
 " {{{ ALE
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-                \   '%dW %dE',
-                \   all_non_errors,
-                \   all_errors
-                \)
-endfunction
-
-set statusline=%{LinterStatus()}
+" Bottom statusline display
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_fix_on_save = 1
+let g:ale_list_window_size = 5
+
+" ALE completion, fix errors when save
 let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1
+
+" Run linter every 2 seconds
+let g:ale_lint_delay = 2000
+
+" Open quickfix when error occurs
+let g:ale_open_list = 1
 " }}}
 " {{{ Multi-cursor
 let g:multi_cursor_use_default_mapping=0
@@ -27,27 +23,44 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<C-[>'
 " }}}
 " {{{ vim-airline
-let g:airline#extensions#syntastic#enabled = 1
+" Configure it to be more performant and only load necessary extensions
+let g:airline_extensions = ["ale", "tabline", "branch"]
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1 "Integrate with ALE
+let g:airline_highlighting_cache = 1
+
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
 if !exists('g:airline_powerline_fonts')
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
-else
-    let g:airline#extensions#tabline#left_sep = ''
-    let g:airline#extensions#tabline#left_alt_sep = ''
-    " powerline symbols
-    let g:airline_left_sep = ''
-    let g:airline_left_alt_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_right_alt_sep = ''
-    let g:airline_symbols.branch = ''
-    let g:airline_symbols.readonly = ''
-    let g:airline_symbols.linenr = ''
 endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.maxlinenr = '㏑'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
+" }}}
+" {{{ vim-airline-themes
+let g:airline_theme='ouo'
 " }}}
 " {{{ NERDTree configuration
 " let g:NERDTreeDirArrows = 1
@@ -70,6 +83,7 @@ cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_working_path_mode = 0
 "}}}
 " {{{ easy-motion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -105,4 +119,7 @@ let g:UltiSnipsEditSplit="vertical"
 " {{{ vim-test
 let test#strategy = "dispatch"
 let test#python#runner = 'pytest'
+" }}}
+" {{{ vim-essentials
+let g:essentials_remove_whitespace_ignore_filetypes = ['text']
 " }}}
