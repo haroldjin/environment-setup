@@ -1,8 +1,4 @@
-source ~/.vim/custom/bundles.vim
+source ~/.vim/custom/plugins.vim
 source ~/.vim/custom/functions.vim
 source ~/.vim/custom/settings.vim
-source ~/.vim/custom/plugins.vim
 source ~/.vim/custom/bindings.vim
-source ~/.vim/custom/augroup.vim
-source ~/.vim/custom/commands.vim
-
