@@ -8,9 +8,11 @@ function! QFixToggle(forced)
     endif
 endfunction
 
-" tab space util
+" set tab info
 fu! Tab()
+    " conver string to int and assign
     let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
+
     if l:tabstop > 0
         let &l:sts = l:tabstop
         let &l:ts = l:tabstop
@@ -19,6 +21,7 @@ fu! Tab()
     call SummarizeTab()
 endfu
 
+" print tab info like above
 function! SummarizeTab()
     try
         echohl ModeMsg
@@ -36,29 +39,6 @@ function! SummarizeTab()
     endtry
 endfu
 
-fu! InsertSemiColon()
-    execute "normal! mqA;\<esc>`q"
-endfu
-
-" Local
-fu! GetSelectedText()
-    normal gv"xy
-    " normal "xy
-    let result = getreg("x")
-    normal gv
-    return result
-endfu
-
-" Web
-fu! HandleURL()
-    let l:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;]*')
-    if l:uri != ""
-        exec "!open '".l:uri."'"
-    else
-        echo "No URI found in line."
-    endif
-endfu
-
 " Vi Help
 fu! Help()
     if &buftype=="help" && match( strpart( getline("."), col(".")-1,1), "\\S")<0
@@ -74,6 +54,22 @@ fu! Help()
         endtry
     endif
 endfu
+
+function! SelectVisualModeText()
+    echom "called"
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    " If selection is inclusive that means last character is included
+    let column_end_offset = &selection == 'inclusive' ? 1 : 2
+    let lines[-1] = lines[-1][: column_end - column_end_offset]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
 
 function! BackgroundCommandClose(channel)
     " Read the output from the command into the quickfix window

@@ -75,7 +75,7 @@ alias v="vi"
 alias vi="vim"
 
 alias gdh="git diff HEAD"
-alias gdh="git diff HEAD^ HEAD"
+alias gdhh="git diff HEAD HEAD^"
 
 # }}}
 # {{{ exports

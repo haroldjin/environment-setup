@@ -45,6 +45,13 @@ bindkey '^s' history-incremental-search-forward
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
 
+# Allow bash style binding
+bindkey '^f' forward-char
+bindkey '^b' backward-char
+
+bindkey '^[f' forward-word
+bindkey '^[b' backward-word
+
 # if mode indicator wasn't setup by theme, define default
 if [[ "$MODE_INDICATOR" == "" ]]; then
   MODE_INDICATOR="%{$fg_bold[red]%}<%{$fg[red]%}<<%{$reset_color%}"

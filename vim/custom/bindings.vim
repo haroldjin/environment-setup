@@ -49,6 +49,7 @@ vmap <S-Tab> <gv
 vmap <Tab> >gv
 vnoremap <silent><Leader>s :sort<CR>
 inoremap <c-c> <esc>:write<cr>
+nnoremap <c-c> :write<cr>
 inoremap jk <esc>:update<cr>
 " do not save replaced text in reg when pasting
 xnoremap p pgvy
@@ -67,17 +68,11 @@ inoremap <C-u> <C-o>d0<C-o>dl
 inoremap <C-w> <C-o>dB<C-o>x
 "}}}
 " {{{ Global
-nmap <silent><leader><space> :RemoveWhiteSpace<CR>
+nmap <silent><leader><space> :EssentialsRemoveWhiteSpace<CR>
 nmap <leader>z :NERDTreeToggle<CR>
 nmap <silent><leader>a :TagbarToggle<CR>
 " }}}
 " {{{ Common Binding
-
-" Easy motion
-nmap <leader>ces <Plug>(easymotion-overwin-f2)
-map <Leader>cej <Plug>(easymotion-j)
-map <Leader>cek <Plug>(easymotion-k)
-
 " Git integration
 nnoremap <leader>cga :Git add % :p<CR><CR>
 nnoremap <leader>cgA :Git add . <CR><CR>
@@ -93,6 +88,11 @@ nnoremap <leader>cgp :Ggrep<Space>
 nnoremap <leader>cgm :Gmove<Space>
 nnoremap <leader>cgb :Git branch<Space>
 nnoremap <leader>cgco :Git checkout<Space>
+
+" Easy motion
+nmap <leader>cs <Plug>(easymotion-overwin-f2)
+map <Leader>csj <Plug>(easymotion-j)
+map <Leader>csk <Plug>(easymotion-k)
 
 " YCM
 nnoremap <leader>yg :YcmCompleter GoTo<CR>
@@ -141,9 +141,21 @@ map <F1> "zyiw:exe "h ".@z.""<CR>
 " quickfix window
 nnoremap <F2> :Dispatch<CR>
 
+function! SelectVisualModeText()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
 " F3 - Selects the text and runs stackoverflow query and put the result in the
 " quickfix window. Type ,q for quickfix window
-vnoremap <F3> :call stackoverflow#StackOverflow(GetSelectedText())<cr>
+vnoremap <F3> :EssentialsStackOverflow(SelectVisualModeText())<CR>
 
 " Redraw screen
 nnoremap <silent><F5> :redraw!<CR>

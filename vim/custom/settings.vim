@@ -5,7 +5,7 @@ let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed' " Check have cli
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 
 colorscheme wombat256mod                                        " Search ftp/colors/{name}.vim and load the first one
-set timeoutlen=3000                                             " Give 3 seconds timeout for key code or mapped key sequence to complete
+set timeoutlen=1000                                             " Give 1 seconds timeout for key code or mapped key sequence to complete
 set autoread                                                    " Read the file automatically if changed outside the buffer
 set autowriteall                                                " Write if content has been modified for all command
 set copyindent                                                  " Copy the previous indentation on autoindenting. For <tab> mostly

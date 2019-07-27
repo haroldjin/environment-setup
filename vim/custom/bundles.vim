@@ -7,21 +7,20 @@ set rtp+=~/.vim/bundle/Vundle.vim   " A list of directories searched for runtime
 call vundle#begin()                 " Start Vundle
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'janko/vim-test'                  " A Vim wrapper for running tests on different granularities.
-Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
+Plugin 'SirVer/ultisnips'                " Autocompletes snippets for you
 Plugin 'Valloric/YouCompleteMe'          " Syntax completion
 Plugin 'airblade/vim-gitgutter'          " Provides nice gutter for file addition in git control
+Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
 Plugin 'fatih/vim-go'                    " Go development inside vim. :GoBuild, GoTest, GoDef, GoCoverage, etc..
 Plugin 'godlygeek/tabular'               " Allow tabularize data
-Plugin 'haroldjin/vim-g'                 " Search Google
-Plugin 'haroldjin/vim-essentials'
-Plugin 'haroldjin/vim-stackoverflow'     " Stack Overflow search
-Plugin 'SirVer/ultisnips'                " Autocompletes snippets for you
+Plugin 'haroldjin/vim-essentials'        " Essential tools for everyday vimer
 Plugin 'honza/vim-snippets'              " Snippet autocompletes data for you, customizable
+Plugin 'janko/vim-test'                  " A Vim wrapper for running tests on different granularities.
 Plugin 'kien/ctrlp.vim'                  " File Search many places with c-f and c-b to search buffers, files, mru, etc.
 Plugin 'kshenoy/vim-signature'           " place, toggle and display marks. m[0-9] will print the marks
 Plugin 'majutsushi/tagbar'               " Allow display of tags, - oasf0 [0-9]
 Plugin 'mileszs/ack.vim'                 " :Ack [options] {pattern} [{directories}]
+Plugin 'plasticboy/vim-markdown'         " Syntax highlighting, matching rules and mappings for the original Markdown and extensions.
 Plugin 'scrooloose/nerdtree'             " Display tree for filesystem
 Plugin 'terryma/vim-multiple-cursors'    " Having multiple cursors to select windows
 Plugin 'tmhedberg/matchit'               " Better matching for key '%'
