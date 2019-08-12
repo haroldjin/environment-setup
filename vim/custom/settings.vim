@@ -1,6 +1,6 @@
 let mapleader = ","
 
-let &backspace=" indent,eol,start"                              " Fix backspace deletion
+let &backspace="indent,eol,start"                              " Fix backspace deletion
 let &clipboard = has('unnamedplus') ? 'unnamedplus' : 'unnamed' " Check have clipboard
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
 
@@ -37,7 +37,7 @@ set showcmd                                                     " Show partial c
 set smartcase                                                   " Search only exact match when capital letter is provided else all. Overrides ignorecase
 set smartindent                                                 " Smarter autoindent when starting a new line enabled for languages
 set softtabstop=4                                               " An addition to tabstop for tab while performing editing operations
-set spell spelllang=en_us                                       " Set spell to USA. It checks files for spell error
+" set spell spelllang=en_us                                       " Set spell to USA. It checks files for spell error
 set tabstop=4                                                   " Number of spaces a <tab> counts for
 set tags=./tags,tags;$HOME                                      " For ctag with completion, C-] get into the tag and C-T get out of the tag
 set ttyfast                                                     " Set fast tty for redrawing. More characters sent to the screen for redraw

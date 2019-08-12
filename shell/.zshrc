@@ -55,10 +55,11 @@ shell_colors(){
 alias dairy='date +%Y-%m-%d''.md'
 
 # ls
-alias l='ls -l'
-alias ll='ls -alF'  # ls -F suffix with file type indication
 alias ls='ls -G'    # ls with color
+alias l='ls -lF'
+alias ll='ls -alF'  # ls -F suffix with file type indication
 alias lsh='ls -la | grep " \..*"' # ls all hidden files only with grep
+alias lstr='ls -ltr'
 
 # CLI
 alias grep='grep --color=auto'

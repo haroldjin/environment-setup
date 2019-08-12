@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 if which tput >/dev/null 2>&1; then
     colors=$(tput colors)
