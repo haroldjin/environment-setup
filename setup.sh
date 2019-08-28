@@ -81,13 +81,13 @@ homerbew_setup(){
     if [  "$vimSelect" == 'v' ]; then
         prompt_info "Installing `prompt_bold "vim with python3"` using brew"
         brew install vim
-        if [ $? eq 0 ]; then
+        if [ $? -eq 0 ]; then
             prompt_info "vim installed successful"
         fi
     elif [ "$vimSelect" == 'm' ]; then
         prompt_info "Installing `prompt_bold "macVim"` using brew"
         brew install macvim
-        if [ $? eq 0 ]; then
+        if [ $? -eq 0 ]; then
             prompt_info "macVim installed successful"
         fi
     else
@@ -139,19 +139,64 @@ setup_zsh(){
 
 
 setup_mac(){
-    prompt_select_return "Do you want to set up `prompt_bold "Homebrew"`"
+    prompt_select_return "Do you want to set up `prompt_bold "mac"`"
     if [ $? == 1 ]; then
         prompt_info "setting up homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         if [ $? -eq 0 ]; then
-            prompt_info "brew set up successfully"
+            prompt_info "mac set up successfully"
             homerbew_setup
         else
-            prompt_error "brew set up failed, continuing setting up the environment"
+            prompt_error "mac set up failed, continuing setting up the environment"
         fi
     else
-        prompt_error "skipping setting up homebrew"
+        prompt_error "skipping setting up mac"
     fi
+}
+
+setup_linux(){
+    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux")
+
+    local PACKAGE_COMMAND=""
+    if [ `command_exists apt-get` ]; then
+        PACKAGE_COMMAND="apt-get"
+    elif [ `command_exists yum` ]; then
+        PACKAGE_COMMAND="yum"
+    else
+        prompt_error "Unable to find package command"
+        return 1
+    fi
+
+    prompt_select_return "Detected package command $PACKAGE_COMMAND. Do you want to set up `prompt_bold "linux"`"
+    if [ $? == 0 ]; then
+        prompt_error "skipping setting up linux"
+        return 1
+    fi
+
+    for command in "${commandsToInstall[@]}"; do
+        command_exists "$command"
+        if [ $? -eq 1 ]; then
+            prompt_select_return "command $command doesn't exist do you want to install"
+            if [ "$?" = 1 ]; then
+                prompt_info "installing command $command"
+                $PACKAGE_COMMAND install $command
+            fi
+        fi
+    done
+
+    prompt_select_print "Do you want to install `prompt_bold "vim"`" "[v/n]${STYLE_NONE} - v for vim, n to skip"
+    read vimSelect
+    if [  "$vimSelect" == 'v' ]; then
+        prompt_info "Installing `prompt_bold "vim"` using $PACKAGE_COMMAND"
+        $PACKAGE_COMMAND install vim
+        if [ $? -eq 1]; then
+            prompt_error "unable to find package manager to install vim"
+            return 1
+        fi
+    else
+        prompt_info "skipping vim installation"
+    fi
+    return 0
 }
 
 setup_shell(){
@@ -188,11 +233,6 @@ setup_vim(){
 
     prompt_info "install plugins for vim"
     vim +PluginInstall +qall
-
-    prompt_select_return "do you want to set up YouCompleteMe?"
-    if [ $? == 1 ]; then
-        python `pwd`/vim/bundle/YouCompleteMe/install.py --all
-    fi
     echo
 }
 
@@ -228,7 +268,8 @@ setup_tmux(){
 if [ "$OS_NAME" == "Darwin" ]; then
     setup_mac
 elif [ "$OS_NAME" == "Linux" ]; then
-    prompt_error "$OS_NAME is not yet implemented for OS specific packages"
+    setup_linux
+    # prompt_error "$OS_NAME is not yet implemented for OS specific packages"
     # Linux specific setups
 else
     prompt_error "$OS_NAME is not yet implemented for OS specific packages and for bash and vim"
