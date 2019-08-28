@@ -63,7 +63,7 @@ command_exists () {
 }
 
 homerbew_setup(){
-    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux")
+    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux", "zsh")
 
     for command in "${commandsToInstall[@]}"; do
         command_exists "$command"
@@ -155,12 +155,12 @@ setup_mac(){
 }
 
 setup_linux(){
-    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux")
+    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux", "zsh")
 
     local PACKAGE_COMMAND=""
-    if [ `command_exists apt-get` ]; then
+    if  command_exists apt-get; then
         PACKAGE_COMMAND="apt-get"
-    elif [ `command_exists yum` ]; then
+    elif command_exists yum; then
         PACKAGE_COMMAND="yum"
     else
         prompt_error "Unable to find package command"
@@ -174,12 +174,11 @@ setup_linux(){
     fi
 
     for command in "${commandsToInstall[@]}"; do
-        command_exists "$command"
-        if [ $? -eq 1 ]; then
+        if ! command_exists "$command"; then
             prompt_select_return "command $command doesn't exist do you want to install"
             if [ "$?" = 1 ]; then
                 prompt_info "installing command $command"
-                $PACKAGE_COMMAND install $command
+                sudo $PACKAGE_COMMAND install $command
             fi
         fi
     done
@@ -188,7 +187,7 @@ setup_linux(){
     read vimSelect
     if [  "$vimSelect" == 'v' ]; then
         prompt_info "Installing `prompt_bold "vim"` using $PACKAGE_COMMAND"
-        $PACKAGE_COMMAND install vim
+        sudo $PACKAGE_COMMAND install vim
         if [ $? -eq 1]; then
             prompt_error "unable to find package manager to install vim"
             return 1
