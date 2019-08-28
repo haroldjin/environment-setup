@@ -7,7 +7,12 @@ set rtp+=~/.vim/bundle/Vundle.vim   " A list of directories searched for runtime
 call vundle#begin()                 " Start Vundle
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'davidhalter/jedi-vim'
+" Completions
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'deoplete-plugins/deoplete-jedi'
+
 Plugin 'SirVer/ultisnips'                " Autocompletes snippets for you
 Plugin 'airblade/vim-gitgutter'          " Provides nice gutter for file addition in git control
 Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
@@ -22,7 +27,6 @@ Plugin 'majutsushi/tagbar'               " Allow display of tags, - oasf0 [0-9]
 Plugin 'mileszs/ack.vim'                 " :Ack [options] {pattern} [{directories}]
 Plugin 'plasticboy/vim-markdown'         " Syntax highlighting, matching rules and mappings for the original Markdown and extensions.
 Plugin 'scrooloose/nerdtree'             " Display tree for filesystem
-Plugin 'terryma/vim-multiple-cursors'    " Having multiple cursors to select windows
 Plugin 'tmhedberg/matchit'               " Better matching for key '%'
 Plugin 'tpope/vim-commentary'            " Comment with gcc. :g/content/Commentary ;; 7,17Commentary
 Plugin 'tpope/vim-dispatch'              " :Dispatch commands to run in background
@@ -54,13 +58,9 @@ let g:ale_lint_delay = 2000
 " Open quickfix when error occurs
 let g:ale_open_list = 1
 " }}}
-" {{{ Multi-cursor
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<C-[>'
-" }}}
+" {{{ deoplete
+let g:deoplete#enable_at_startup = 1
+"}}}
 " {{{ vim-airline
 " Configure it to be more performant and only load necessary extensions
 let g:airline_extensions = ["ale", "tabline", "branch"]

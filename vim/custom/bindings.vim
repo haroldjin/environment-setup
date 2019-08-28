@@ -69,7 +69,7 @@ inoremap <C-a> <C-o>0
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-u> <C-o>d0<C-o>dl
-inoremap <C-w> <C-o>dB<C-o>x
+inoremap <C-w> <C-o>T<space><c-o>dW
 "}}}
 " {{{ Global
 nmap <silent><leader><space> :EssentialsRemoveWhiteSpace<CR>
@@ -134,7 +134,7 @@ map <leader>uW :w !sudo tee % >/dev/null<CR>
 " Google search, define and goto url
 nnoremap <leader>ugo :Google<cr>
 nnoremap <leader>ugd :exe ":Google define ". expand("<cword>")<cr>
-nnoremap <leader>ugu :call HandleURL()<cr><cr>
+nnoremap <leader>ugu :EssentialsOpenUrl<cr>
 " }}}
 " {{{ Function Keys
 " F1 - Help on word under cursor. Yank inner word into register z and run help
