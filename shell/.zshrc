@@ -42,6 +42,7 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
+# Utils
 shell_colors(){
     for i in {0..255}; do
         printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i
@@ -52,38 +53,28 @@ shell_colors(){
 }
 # }}}
 # {{{ Alias
-alias dairy='date +%Y-%m-%d''.md'
-
-# ls
-alias ls='ls -G'    # ls with color
+alias dairy="vi $(date +%Y-%m-%d).md"
+alias gdh="git diff HEAD"
+alias gdhh="git diff HEAD^ HEAD"
+alias grep='grep --color=auto'
 alias l='ls -lF'
 alias ll='ls -alF'  # ls -F suffix with file type indication
+alias ls='ls -G'    # ls with color
 alias lsh='ls -la | grep " \..*"' # ls all hidden files only with grep
 alias lstr='ls -ltr'
-
-# CLI
-alias grep='grep --color=auto'
-
-# Remote
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
-
-#work dir
+alias v="vi"
+alias vi="vim"
 alias wd="cd $HOME/Documents/works"
 alias wl="cd $HOME/Documents/lib"
 
-# bin alias
-alias v="vi"
-alias vi="vim"
-
-alias gdh="git diff HEAD"
-alias gdhh="git diff HEAD^ HEAD"
-
 # }}}
-# {{{ exports
-export LIB=$HOME/Documents/lib
-export FLUTTER_PATH=$LIB/flutter
-export GOPATH=$LIB/go
-export GOROOT=/usr/local/opt/go/libexec
-export LOCAL_BIN=$HOME/bin
-export PATH=~/Library/Python/3.7/bin:$LOCAL_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$GRADLE_BIN::$FLUTTER_PATH/bin
+# {{{ PATH export
+if [[ -z $TMUX ]]; then
+    export LIB=$HOME/Documents/lib
+    export GOPATH=$LIB/go
+    export GOROOT=/usr/local/opt/go/libexec
+    export LOCAL_BIN=$HOME/bin
+    export PATH=$LOCAL_BIN:$PATH:$GOROOT/bin:$GOPATH/bin
+fi
 # }}}
