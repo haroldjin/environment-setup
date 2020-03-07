@@ -1,5 +1,14 @@
 #!/bin/bash
 
+shopt -s nocasematch
+
+setup=ALL
+
+
+if [ "$#" -eq 1 ]; then
+    setup=$1
+fi
+
 if which tput >/dev/null 2>&1; then
     colors=$(tput colors)
 fi
@@ -261,21 +270,35 @@ setup_tmux(){
 
 }
 
-# ======= MAIN =======
-## Setup dependencies
-if [ "$OS_NAME" == "Darwin" ]; then
-    setup_mac
-elif [ "$OS_NAME" == "Linux" ]; then
-    setup_linux
-    # prompt_error "$OS_NAME is not yet implemented for OS specific packages"
-    # Linux specific setups
-else
-    prompt_error "$OS_NAME is not yet implemented for OS specific packages and for bash and vim"
-    exit 1
-fi
-
-setup_shell
-setup_vim
-setup_tmux
+case "$setup" in
+    "ALL" )
+        echo setting up all.
+        # ======= MAIN =======
+        ## Setup dependencies
+        if [ "$OS_NAME" == "Darwin" ]; then
+            setup_mac
+        elif [ "$OS_NAME" == "Linux" ]; then
+            setup_linux
+            # prompt_error "$OS_NAME is not yet implemented for OS specific packages"
+            # Linux specific setups
+        else
+            prompt_error "$OS_NAME is not yet implemented for OS specific packages and for bash and vim"
+            exit 1
+        fi
+        setup_shell
+        setup_vim
+        setup_tmux ;;
+    "tmux")
+        echo setting up tmux
+        setup_tmux;;
+    "vim")
+        echo setting up vim
+        setup_vim;;
+    "shell")
+        echo setting up shell
+        setup_shell;;
+    "help") echo "Usage:"
+        echo "./setup.sh [tmux|vim|shell]";;
+esac
 
 prompt_info "setup completed!"
