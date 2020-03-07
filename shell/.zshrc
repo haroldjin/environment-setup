@@ -53,28 +53,36 @@ shell_colors(){
 }
 # }}}
 # {{{ Alias
+# Personal & Git
 alias dairy="vi $(date +%Y-%m-%d).md"
 alias gdh="git diff HEAD"
 alias gdhh="git diff HEAD^ HEAD"
+
+# Color enhancements
 alias grep='grep --color=auto'
-alias l='ls -lF'
-alias ll='ls -alF'  # ls -F suffix with file type indication
-alias ls='ls -G'    # ls with color
+alias ls='ls --color -F'
+alias ll='ls -alF --color'
+
+# helpers and shortcuts
 alias lsh='ls -la | grep " \..*"' # ls all hidden files only with grep
-alias lstr='ls -ltr'
-alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias v="vi"
 alias vi="vim"
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+
+# workspace directories
 alias wd="cd $HOME/Documents/works"
+alias wdg="cd $HOME/Documents/works/git"
 alias wl="cd $HOME/Documents/lib"
+alias sd="sdcv -c"
 
 # }}}
 # {{{ PATH export
 if [[ -z $TMUX ]]; then
     export LIB=$HOME/Documents/lib
     export GOPATH=$LIB/go
-    export GOROOT=/usr/local/opt/go/libexec
+    export FLUTTER=$LIB/flutter
+    export GOROOT=$LIB/go-root
     export LOCAL_BIN=$HOME/bin
-    export PATH=$LOCAL_BIN:$PATH:$GOROOT/bin:$GOPATH/bin
+    export PATH=$LOCAL_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$FLUTTER/bin
 fi
 # }}}

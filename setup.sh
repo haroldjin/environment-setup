@@ -57,7 +57,6 @@ prompt_select_return(){
     fi
 }
 
-# functions
 command_exists () {
     type "$1" &> /dev/null ;
 }
@@ -155,10 +154,10 @@ setup_mac(){
 }
 
 setup_linux(){
-    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux", "zsh")
+    declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux" "zsh")
 
     local PACKAGE_COMMAND=""
-    if  command_exists apt-get; then
+    if command_exists apt-get; then
         PACKAGE_COMMAND="apt-get"
     elif command_exists yum; then
         PACKAGE_COMMAND="yum"

@@ -7,16 +7,11 @@ set rtp+=~/.vim/bundle/Vundle.vim   " A list of directories searched for runtime
 call vundle#begin()                 " Start Vundle
 Plugin 'gmarik/Vundle.vim'
 
-" Completions
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'deoplete-plugins/deoplete-jedi'
-
 Plugin 'SirVer/ultisnips'                " Autocompletes snippets for you
 Plugin 'airblade/vim-gitgutter'          " Provides nice gutter for file addition in git control
 Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
 Plugin 'fatih/vim-go'                    " Go development inside vim. :GoBuild, GoTest, GoDef, GoCoverage, etc..
+
 Plugin 'godlygeek/tabular'               " Allow tabularize data
 Plugin 'haroldjin/vim-essentials'        " Essential tools for everyday vimer
 Plugin 'honza/vim-snippets'              " Snippet autocompletes data for you, customizable
@@ -58,9 +53,6 @@ let g:ale_lint_delay = 2000
 " Open quickfix when error occurs
 let g:ale_open_list = 1
 " }}}
-" {{{ deoplete
-let g:deoplete#enable_at_startup = 1
-"}}}
 " {{{ vim-airline
 " Configure it to be more performant and only load necessary extensions
 let g:airline_extensions = ["ale", "tabline", "branch"]

@@ -69,7 +69,7 @@ inoremap <C-a> <C-o>0
 inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-u> <C-o>d0<C-o>dl
-inoremap <C-w> <C-o>T<space><c-o>dW
+inoremap <C-w> <Space><C-o>B<c-o>dW
 "}}}
 " {{{ Global
 nmap <silent><leader><space> :EssentialsRemoveWhiteSpace<CR>

@@ -46,5 +46,4 @@ set undolevels=700                                              " Max number of 
 set viminfo='0,:0,<0,@0,f0                                      " Used to remember information, such as CLI, search, marks, etc. Set to 0 for all
 set wildmenu                                                    " Enable enhanced mode where pressing <Tab> to invoke completion.
 set wildmode=list:longest,list:full                             " Complete all match till longest common string and complete first match
-
-
+set secure                                                      " Disallow shell and write commands in vimrc files
