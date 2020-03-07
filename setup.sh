@@ -4,11 +4,14 @@ shopt -s nocasematch
 
 setup=ALL
 
-
 if [ "$#" -eq 1 ]; then
     setup=$1
 fi
 
+OS_NAME=$(uname -s)
+VUNDLE_PATH='https://github.com/VundleVim/Vundle.vim.git'
+
+# {{{ Color utility functions
 if which tput >/dev/null 2>&1; then
     colors=$(tput colors)
 fi
@@ -36,9 +39,6 @@ else
     FONT_UNDERLINE=''
 fi
 
-OS_NAME=`uname -s`
-VUNDLE_PATH='https://github.com/VundleVim/Vundle.vim.git'
-
 # Prompts with enable backslash interpretation
 prompt_bold(){
     echo -e "${STYLE_NONE} ${FONT_BOLD}$1${STYLE_NONE}"
@@ -60,40 +60,42 @@ prompt_select_return(){
     echo -e "${COLOR_PURPLE}$1${STYLE_NONE}${COLOR_GREEN} [y/n]${STYLE_NONE}"
     read isYes
     if [ "$isYes" == "y" ]; then
-        return 1
-    else
         return 0
+    else
+        return 1
     fi
 }
 
 command_exists () {
     type "$1" &> /dev/null ;
 }
-
+# }}}
+# {{{ OS Setup
+# {{{ Mac setup
 homerbew_setup(){
     declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux" "zsh")
 
     for command in "${commandsToInstall[@]}"; do
         command_exists "$command"
         if [ $? -eq 1 ]; then
-            prompt_select_return "command $command doesn't exist do you want to install"
-            if [ "$?" = 1 ]; then
+            prompt_select_return "command $command doesn't exist do you want to install?"
+            if [ $? -eq 0 ]; then
                 prompt_info "installing command $command"
                 brew install $command
             fi
         fi
     done
 
-    prompt_select_print "Do you want to install `prompt_bold "vim"`" "[m/v/n]${STYLE_NONE} - m for macvim, v for vim, n to skip"
+    prompt_select_print "Do you want to install $(prompt_bold "vim")" "[m/v/n]${STYLE_NONE} - m for macvim, v for vim, n to skip"
     read vimSelect
     if [  "$vimSelect" == 'v' ]; then
-        prompt_info "Installing `prompt_bold "vim with python3"` using brew"
+        prompt_info "Installing $(prompt_bold "vim with python3") using brew"
         brew install vim
         if [ $? -eq 0 ]; then
             prompt_info "vim installed successful"
         fi
     elif [ "$vimSelect" == 'm' ]; then
-        prompt_info "Installing `prompt_bold "macVim"` using brew"
+        prompt_info "Installing $(prompt_bold "macVim") using brew"
         brew install macvim
         if [ $? -eq 0 ]; then
             prompt_info "macVim installed successful"
@@ -103,52 +105,9 @@ homerbew_setup(){
     fi
 }
 
-setup_bash(){
-    prompt_info "setting up bash profile"
-    if [ -z $1 ] || [ $1 != "bash" ]; then
-        prompt_select_return "Shell $1 is not bash, do you want to change your default shell to bash"
-        if [ $? == 1 ]; then
-            prompt_info "changing shell from $1 to bash"
-            chsh -s $(which bash)
-        fi
-    fi
-
-    ln -sfn `pwd`/shell/.bashrc ~/.bash_profile
-    if [ $? -eq 0 ]; then
-        prompt_info "bash set up successful"
-    else
-        prompt_error "error setting up bash profile"
-        exit 1
-    fi
-    echo
-}
-
-setup_zsh(){
-    prompt_info "setting up zsh profile"
-    if [ -z $1 ] || [ $1 != "zsh" ]; then
-        prompt_select_return "Shell $1 is not zsh, do you want to change your default shell to zsh"
-        if [ $? == 1 ]; then
-            prompt_info "changing shell from $1 to zsh"
-            chsh -s $(which zsh)
-        fi
-    fi
-
-    ln -sfn `pwd`/shell/.zshrc ~/.zshrc && ln -sfn `pwd`/zsh ~/.zsh
-
-    if [ $? -eq 0 ]; then
-        prompt_info "zsh set up successful"
-    else
-        prompt_error "error setting up zsh profile"
-        exit 1
-    fi
-    echo
-}
-
-
-
 setup_mac(){
-    prompt_select_return "Do you want to set up `prompt_bold "mac"`"
-    if [ $? == 1 ]; then
+    prompt_select_return "Do you want to set up $(prompt_bold "mac")"
+    if [ $? -eq 0 ]; then
         prompt_info "setting up homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         if [ $? -eq 0 ]; then
@@ -161,7 +120,7 @@ setup_mac(){
         prompt_error "skipping setting up mac"
     fi
 }
-
+# }}}
 setup_linux(){
     declare -a commandsToInstall=("python3" "yarn" "npm" "cmake" "tmux" "zsh")
 
@@ -175,8 +134,8 @@ setup_linux(){
         return 1
     fi
 
-    prompt_select_return "Detected package command $PACKAGE_COMMAND. Do you want to set up `prompt_bold "linux"`"
-    if [ $? == 0 ]; then
+    prompt_select_return "Detected package command $PACKAGE_COMMAND. Do you want to set up $(prompt_bold "linux")"
+    if [ $? -ne 0 ]; then
         prompt_error "skipping setting up linux"
         return 1
     fi
@@ -184,17 +143,17 @@ setup_linux(){
     for command in "${commandsToInstall[@]}"; do
         if ! command_exists "$command"; then
             prompt_select_return "command $command doesn't exist do you want to install"
-            if [ "$?" = 1 ]; then
+            if [ $? -eq 0 ]; then
                 prompt_info "installing command $command"
                 sudo $PACKAGE_COMMAND install $command
             fi
         fi
     done
 
-    prompt_select_print "Do you want to install `prompt_bold "vim"`" "[v/n]${STYLE_NONE} - v for vim, n to skip"
+    prompt_select_print "Do you want to install $(prompt_bold "vim")" "[v/n]${STYLE_NONE} - v for vim, n to skip"
     read vimSelect
     if [  "$vimSelect" == 'v' ]; then
-        prompt_info "Installing `prompt_bold "vim"` using $PACKAGE_COMMAND"
+        prompt_info "Installing $(prompt_bold "vim") using $PACKAGE_COMMAND"
         sudo $PACKAGE_COMMAND install vim
         if [ $? -eq 1]; then
             prompt_error "unable to find package manager to install vim"
@@ -205,9 +164,10 @@ setup_linux(){
     fi
     return 0
 }
-
+# }}}
+# {{{ Shell Setup
 setup_shell(){
-    prompt_select_print "Do you want to setup `prompt_bold "bash or zsh"`" "[b/z/n]${STYLE_NONE} - b for bash, z for zsh, n to skip"
+    prompt_select_print "Do you want to setup $(prompt_bold "bash or zsh")" "[b/z/n]${STYLE_NONE} - b for bash, z for zsh, n to skip"
     read shellSelect
     cur_shell=$(basename $SHELL)
     if [  "$shellSelect" == 'b' ]; then
@@ -219,13 +179,56 @@ setup_shell(){
     fi
 }
 
+setup_bash(){
+    prompt_info "setting up bash profile"
+    if [ -z $1 ] || [ $1 != "bash" ]; then
+        prompt_select_return "Shell $1 is not bash, do you want to change your default shell to bash"
+        if [ $? -eq 0 ]; then
+            prompt_info "changing shell from $1 to bash"
+            chsh -s $(which bash)
+        fi
+    fi
+
+    ln -sfn $(pwd)/shell/.bashrc ~/.bash_profile
+    if [ $? -eq 0 ]; then
+        prompt_info "bash set up successful"
+    else
+        prompt_error "error setting up bash profile"
+        exit 1
+    fi
+    echo
+}
+
+setup_zsh(){
+    prompt_info "setting up zsh profile"
+    if [ -z $1 ] || [ $1 != "zsh" ]; then
+        prompt_select_return "Shell $1 is not zsh, do you want to change your default shell to zsh"
+        if [ $? -eq 0 ]; then
+            prompt_info "changing shell from $1 to zsh"
+            chsh -s $(which zsh)
+        fi
+    fi
+
+    ln -sfn $(pwd)/shell/.zshrc ~/.zshrc && ln -sfn $(pwd)/zsh ~/.zsh
+
+    if [ $? -eq 0 ]; then
+        prompt_info "zsh set up successful"
+    else
+        prompt_error "error setting up zsh profile"
+        exit 1
+    fi
+    echo
+}
+
+# }}}
+# {{{ Editor utility setup
 setup_vim(){
     prompt_select_return "Do you want to set up vim?"
-    if [ $? == 0 ]; then
-        return 0
+    if [ $? -ne 0 ]; then
+        return 2
     fi
     prompt_info "setting up vimrc and vim libraries"
-    ln -sfn `pwd`/vim/vimrc ~/.vimrc && ln -sfn `pwd`/vim ~/.vim
+    ln -sfn $(pwd)/vim/vimrc ~/.vimrc && ln -sfn $(pwd)/vim ~/.vim
     if [ $? -eq 0 ]; then
         prompt_info "vim folder setup successful"
     else
@@ -234,8 +237,8 @@ setup_vim(){
     fi
 
     prompt_info "cloning vundle to vim directory"
-    if [ ! -d `pwd`/vim/bundle/Vundle.vim ]; then
-        git clone ${VUNDLE_PATH} `pwd`/vim/bundle/Vundle.vim
+    if [ ! -d $(pwd)/vim/bundle/Vundle.vim ]; then
+        git clone ${VUNDLE_PATH} $(pwd)/vim/bundle/Vundle.vim
     fi
 
     prompt_info "install plugins for vim"
@@ -245,7 +248,7 @@ setup_vim(){
 
 setup_tmux(){
     prompt_select_return "Do you want to set up tmux?"
-    if [ $? == 0 ]; then
+    if [ $? -ne 0 ]; then
         return 0
     fi
 
@@ -260,7 +263,7 @@ setup_tmux(){
         fi
     fi
 
-    ln -sfn `pwd`/tmux/.tmux.conf ~/.tmux.conf && ln -sfn `pwd`/tmux ~/.tmux && ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+    ln -sfn $(pwd)/tmux/.tmux.conf ~/.tmux.conf && ln -sfn $(pwd)/tmux ~/.tmux && ~/.tmux/plugins/tpm/scripts/install_plugins.sh
     if [ $? -eq 0 ]; then
         prompt_info "tmux setup successful"
     else
@@ -269,7 +272,60 @@ setup_tmux(){
     fi
 
 }
+# }}}
+# {{{ Window manager setup
+setup_awesomewm(){
+    prompt_select_return "Do you want to set up awesomewm?"
+    if [ $? -ne 0 ]; then
+        prompt_error "Skipping awesomewm installation"
+        return 1
+    fi
 
+    declare -a commandsToInstall=("acpi" "xfce4-power-manager" "xautolock" "slock")
+
+    for command in "${commandsToInstall[@]}"; do
+        command_exists "$command"
+        if [ $? -eq 1 ]; then
+            prompt_select_return "command $command doesn't exist do you want to install?"
+            if [ $? -eq 0 ]; then
+                prompt_info "installing command $command"
+                sudo apt install $command
+            fi
+        fi
+    done
+
+    # Set up icons
+    git clone https://github.com/horst3180/arc-icon-theme --depth 1 && pushd arc-icon-theme && ./autogen.sh --prefix=/usr && sudo make install
+    if [ $? -ne 0 ]; then
+        prompt_error "Unable to install arc-icon-theme needed for the awesome-wm-widgets"
+        exit 1
+    fi
+    popd
+
+    prompt_info "Updating submodule awesome-wm-widgets"
+    git submodule update
+    if [ $? -ne 0 ]; then
+        prompt_error "Unable to update submodule awesome-wm-widgets"
+        exit 1
+    fi
+
+    AWESOME_CONFIG=$HOME/.config/awesome
+    if [ -e $AWESOME_CONFIG ]; then
+        prompt_info "$AWESOME_CONFIG exists, moving to ${AWESOME_CONFIG}-backup"
+        mv $AWESOME_CONFIG ${AWESOME_CONFIG}-backup
+    fi
+
+    ln -sfn $(pwd)/awesome $AWESOME_CONFIG
+    if [ $? -eq 0 ]; then
+        prompt_info "Awesome config set up successful"
+    else
+        prompt_error "error setting up awesome config"
+        exit 1
+    fi
+    echo
+}
+# }}}
+# {{{ Main
 case "$setup" in
     "ALL" )
         echo setting up all.
@@ -287,7 +343,8 @@ case "$setup" in
         fi
         setup_shell
         setup_vim
-        setup_tmux ;;
+        setup_tmux
+        setup_awesomewm;;
     "tmux")
         echo setting up tmux
         setup_tmux;;
@@ -297,8 +354,12 @@ case "$setup" in
     "shell")
         echo setting up shell
         setup_shell;;
+    "awesomewm")
+        echo setting up awesomewm
+        setup_awesomewm;;
     "help") echo "Usage:"
-        echo "./setup.sh [tmux|vim|shell]";;
+        echo "./setup.sh [tmux|vim|shell|awesomewm]";;
 esac
 
 prompt_info "setup completed!"
+# }}}
