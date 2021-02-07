@@ -65,24 +65,14 @@ alias ll='ls -alF --color'
 
 # helpers and shortcuts
 alias lsh='ls -la | grep " \..*"' # ls all hidden files only with grep
-alias v="vi"
+alias v="vim"
 alias vi="vim"
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
-
-# workspace directories
-alias wd="cd $HOME/Documents/works"
-alias wdg="cd $HOME/Documents/works/git"
-alias wl="cd $HOME/Documents/lib"
-alias sd="sdcv -c"
 
 # }}}
 # {{{ PATH export
 if [[ -z $TMUX ]]; then
-    export LIB=$HOME/Documents/lib
-    export GOPATH=$LIB/go
-    export FLUTTER=$LIB/flutter
-    export GOROOT=$LIB/go-root
     export LOCAL_BIN=$HOME/bin
-    export PATH=$LOCAL_BIN:$PATH:$GOROOT/bin:$GOPATH/bin:$FLUTTER/bin
+    export PATH=$LOCAL_BIN:$PATH
 fi
 # }}}

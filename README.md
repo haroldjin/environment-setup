@@ -1,14 +1,5 @@
 # Environment-setup
-1. How to setup your environment
-    * Run `./setup.sh` to start environment setup script.
-    * Run `./setup.sh help` for usage.
-    * Run `./setup.sh tmux` to setup only tmux
-    * Run `./setup.sh vim` to setup only vim
-    * Run `./setup.sh shell` to setup only shell
-
-## Features
-1. Mac OS X and linux dependencies setup support
-2. shell, vim and tmux environment setup.
+source files you need in your dotfiles
 
 # Tmux
 ## About tmux

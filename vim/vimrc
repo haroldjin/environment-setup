@@ -1,4 +1,4 @@
-source ~/.vim/custom/plugins.vim
-source ~/.vim/custom/functions.vim
-source ~/.vim/custom/settings.vim
-source ~/.vim/custom/bindings.vim
+source custom/plugins.vim
+source custom/functions.vim
+source custom/settings.vim
+source custom/bindings.vim
