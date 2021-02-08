@@ -1,6 +1,6 @@
 # {{{ Set up zsh
 # Global
-ZSH=$HOME/.zsh
+ZSH=.dotfiles/zsh
 
 # Init Completion
 autoload -U compaudit compinit
