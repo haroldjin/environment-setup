@@ -177,8 +177,6 @@ command! -nargs=* Tab call Tab()
 
 augroup filetype_action
     autocmd!
-    autocmd   filetype   python                    setlocal   foldmethod=indent
-    autocmd   filetype   python                    setlocal   foldlevel=99
     autocmd   FileType   python                    set        softtabstop=4       tabstop=4   shiftwidth=4
     autocmd   FileType   ruby,rdoc,cucumber,yaml   set        softtabstop=2       tabstop=2   shiftwidth=2
 augroup END
