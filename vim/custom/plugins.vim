@@ -7,7 +7,6 @@ set rtp+=~/.vim/bundle/Vundle.vim   " A list of directories searched for runtime
 call vundle#begin()                 " Start Vundle
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'SirVer/ultisnips'                " Autocompletes snippets for you
 Plugin 'airblade/vim-gitgutter'          " Provides nice gutter for file addition in git control
 Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
 Plugin 'fatih/vim-go'                    " Go development inside vim. :GoBuild, GoTest, GoDef, GoCoverage, etc..
@@ -131,14 +130,6 @@ augroup dispatch_action
     autocmd FileType javascript let b:dispatch = 'nodemon %'
     autocmd FileType python let b:dispatch = 'python3 %'
 augroup END
-" }}}
-" {{{ UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 " }}}
 " {{{ vim-test
 let test#strategy = "dispatch"
