@@ -41,7 +41,13 @@ set softtabstop=4                                               " An addition to
 set tabstop=4                                                   " Number of spaces a <tab> counts for
 set tags=./tags,tags;$HOME                                      " For ctag with completion, C-] get into the tag and C-T get out of the tag
 set ttyfast                                                     " Set fast tty for redrawing. More characters sent to the screen for redraw
-set ttymouse=xterm2                                             " Name of the terminal type for which mouse codes are to be recognized. More precise
+if !has('nvim')
+    if has("mouse_sgr")
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    end
+endif
 set undolevels=700                                              " Max number of changes that can be undone
 set viminfo='0,:0,<0,@0,f0                                      " Used to remember information, such as CLI, search, marks, etc. Set to 0 for all
 set wildmenu                                                    " Enable enhanced mode where pressing <Tab> to invoke completion.

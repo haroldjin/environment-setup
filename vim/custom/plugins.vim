@@ -6,11 +6,9 @@ filetype off    " Don't detect file type.
 set rtp+=~/.vim/bundle/Vundle.vim   " A list of directories searched for runtime files
 call vundle#begin()                 " Start Vundle
 Plugin 'gmarik/Vundle.vim'
-
 Plugin 'airblade/vim-gitgutter'          " Provides nice gutter for file addition in git control
 Plugin 'easymotion/vim-easymotion'       " Allows search with ,ces or ,ce{l|k}
 Plugin 'fatih/vim-go'                    " Go development inside vim. :GoBuild, GoTest, GoDef, GoCoverage, etc..
-
 Plugin 'godlygeek/tabular'               " Allow tabularize data
 Plugin 'haroldjin/vim-essentials'        " Essential tools for everyday vimer
 Plugin 'honza/vim-snippets'              " Snippet autocompletes data for you, customizable
